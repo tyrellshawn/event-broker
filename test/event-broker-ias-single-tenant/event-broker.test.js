@@ -48,7 +48,7 @@ describe('event-broker service with ias auth for single tenant scenario', () => 
     mockHttps.handleHttpReq = () => {
       return { message: 'ok' }
     }
-    cds.context = { tenant: 'btpSystemId', user: cds.User.privileged }
+    cds.context = { tenant: 'sometenant', user: cds.User.privileged }
     
     await ownSrv.emit('created', { data: 'testdata', headers: { some: 'headers' } })
     expect(mockHttps.request).toHaveBeenCalledTimes(1)
@@ -59,7 +59,8 @@ describe('event-broker service with ias auth for single tenant scenario', () => 
         headers: {
           'ce-xsapcomplianteventspec': true,
           'ce-id': expect.anything(),
-          'ce-source': '/default/cap.test/btpSystemId',
+          //we expect the credential systemId to take precedence here
+          'ce-source': '/default/cap.test/btappSystemId',
           'ce-type': 'cap.test.object.created.v1',
           'ce-specversion': '1.0',
           'Content-Type': 'application/json'

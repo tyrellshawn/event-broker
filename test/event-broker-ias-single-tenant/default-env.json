@@ -3,7 +3,7 @@
     "event-broker": [
       {
         "credentials": {
-          "systemId": "btappId", 
+          "systemId": "btappSystemId", 
           "ceSource": ["/default/cap.test"],
           "authentication-type": "X509_IAS",
           "eventing": {

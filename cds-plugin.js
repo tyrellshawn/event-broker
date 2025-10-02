@@ -276,7 +276,7 @@ class EventBroker extends cds.MessagingService {
     if (!('source' in headers)) {
       if (!this.options.credentials.ceSource)
         throw new Error(`${this.name}: Cannot emit event: Parameter \`ceSource\` not found in Event Broker binding.`)
-      const systemId =  this.options.credentials.systemId || cds.context.tenant
+      const systemId = this.options.credentials.systemId ? this.options.credentials.systemId : cds.context.tenant
       headers.source = `${this.options.credentials.ceSource[0]}/${systemId}`
     }
     super.prepareHeaders(headers, event)
