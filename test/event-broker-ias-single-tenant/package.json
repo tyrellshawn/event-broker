@@ -20,7 +20,12 @@
         "kind": "odata",
         "model": "./srv/external/extSrv.cds",
         "credentials": {}
-      }
+      },
+      "config": {
+			  "eventTypes": [
+				  "abc.fh.employee.feedbackCollector.create.v1"
+			  ]
+		}
     }
   }
 }

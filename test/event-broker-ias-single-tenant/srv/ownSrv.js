@@ -11,10 +11,11 @@ module.exports = async () => {
   console.log('Messaging service options:', JSON.stringify(messaging.options, null, 2));
   console.log('Messaging service credentials:', messaging.options?.credentials ? 'Found' : 'NOT FOUND');
   
-   const eventTypes = cds.env.config.eventTypes || [];
+  const eventTypes = cds.env.config.eventTypes || [];
   setInterval(async () => {
-    
-    const result = await messaging.emit('abc.fh.employee.feedbackCollector.create.v1', { data: 'testdata',  headers: {"ce-xsapcomplianteventspec": true} });
-    console.log('Emit result:', result);
+      for (const eventType of eventTypes) {
+        const result = await messaging.emit(eventType, { data: 'testdata', headers: {"ce-xsapcomplianteventspec": true} });
+        console.log(`Emit result for ${eventType}:`, result);
+      }
   }, 30000);
 }
