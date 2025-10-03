@@ -10,12 +10,10 @@ module.exports = async () => {
   // Debug: Check the messaging service configuration
   console.log('Messaging service options:', JSON.stringify(messaging.options, null, 2));
   console.log('Messaging service credentials:', messaging.options?.credentials ? 'Found' : 'NOT FOUND');
-  
-  const eventTypes = cds.env.config.eventTypes || [];
+
   setInterval(async () => {
-      for (const eventType of eventTypes) {
-        const result = await messaging.emit(eventType, { data: 'testdata', headers: {"ce-xsapcomplianteventspec": true} });
-        console.log(`Emit result for ${eventType}:`, result);
-      }
+      let eventType = "ns.fh.employee.feedbackCollector.create.v1"
+      const result = await messaging.emit(eventType, { data: 'testdata', headers: {"ce-xsapcomplianteventspec": true} });
+      console.log(`Emit result for ${eventType}:`, result);
   }, 30000);
 }
